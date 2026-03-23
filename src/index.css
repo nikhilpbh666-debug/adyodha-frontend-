@@ -1,0 +1,205 @@
+@import "tailwindcss";
+
+/* ─── Base ─────────────────────────────────────────── */
+html {
+  scroll-behavior: smooth;
+  box-sizing: border-box;
+}
+
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  width: 100%;
+}
+
+/* ─── Scrollbar ─────────────────────────────────────── */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #f1f5f9; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+/* ─── Overflow guard ────────────────────────────────── */
+img, svg, video, canvas, iframe {
+  max-width: 100%;
+  display: block;
+}
+
+/* ─── Navbar ────────────────────────────────────────── */
+/* Ensure mobile menu links have comfortable touch targets */
+@media (max-width: 767px) {
+  nav a, nav button {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+
+  /* Brand stays readable */
+  nav h1 {
+    font-size: 1.5rem !important;
+  }
+}
+
+/* ─── Hero ──────────────────────────────────────────── */
+/* Scale headline down on small screens */
+@media (max-width: 767px) {
+  #home h1 {
+    font-size: 2rem !important;
+    line-height: 1.2 !important;
+  }
+
+  #home p.text-xl {
+    font-size: 1rem !important;
+  }
+
+  /* Trust indicators: wrap instead of overflow */
+  #home .flex.gap-8 {
+    flex-wrap: wrap;
+    gap: 1.25rem;
+  }
+
+  #home .flex.gap-8 > div {
+    min-width: 80px;
+  }
+
+  /* CTA buttons: full width on very small screens */
+  #home .flex.flex-col a,
+  #home .flex.sm\:flex-row a {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  #home h1 {
+    font-size: 2.75rem !important;
+    line-height: 1.2 !important;
+  }
+}
+
+/* ─── Section headings ──────────────────────────────── */
+@media (max-width: 767px) {
+  #services h2,
+  #why-us h2,
+  #contact h2 {
+    font-size: 1.875rem !important;
+  }
+
+  #services .mb-16,
+  #why-us .mb-16,
+  #contact .mb-16 {
+    margin-bottom: 2.5rem !important;
+  }
+
+  #services,
+  #why-us,
+  #contact {
+    padding-top: 3rem !important;
+    padding-bottom: 3rem !important;
+  }
+}
+
+/* ─── Services grid ─────────────────────────────────── */
+/* Cards: reduce padding on mobile */
+@media (max-width: 767px) {
+  #services .rounded-2xl {
+    padding: 1.5rem !important;
+  }
+
+  #services h3 {
+    font-size: 1.25rem !important;
+  }
+}
+
+/* ─── Why Choose Us ─────────────────────────────────── */
+@media (max-width: 767px) {
+  #why-us .rounded-2xl {
+    padding: 1.25rem !important;
+  }
+
+  /* Stack icon + text vertically on very small screens */
+  #why-us .flex.gap-4 {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  #why-us .w-16.h-16 {
+    width: 3rem !important;
+    height: 3rem !important;
+    font-size: 1.5rem !important;
+  }
+}
+
+/* ─── Contact ───────────────────────────────────────── */
+@media (max-width: 767px) {
+  /* Inputs and selects: comfortable tap height */
+  #contact input,
+  #contact select,
+  #contact textarea {
+    min-height: 44px;
+    font-size: 1rem;
+  }
+
+  #contact button {
+    min-height: 48px;
+    font-size: 1rem;
+  }
+
+  /* Email address: allow wrapping */
+  #contact a[href^="mailto"] {
+    word-break: break-all;
+  }
+}
+
+/* ─── Contact Form Feedback ────────────────────────── */
+.form-success-message {
+  padding: 1rem;
+  background-color: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 0.5rem;
+  color: #166534;
+}
+
+.form-input-error {
+  border-color: #ef4444 !important;
+  background-color: #fff5f5;
+}
+
+.form-input-error:focus {
+  --tw-ring-color: #ef4444 !important;
+}
+
+.form-error-text {
+  margin-top: 0.25rem;
+  font-size: 0.8rem;
+  color: #dc2626;
+}
+
+/* ─── Footer ────────────────────────────────────────── */
+@media (max-width: 639px) {
+  footer {
+    padding-top: 2.5rem !important;
+    padding-bottom: 2.5rem !important;
+  }
+
+  /* Copyright row: center everything */
+  footer .flex.flex-col.md\:flex-row {
+    text-align: center;
+  }
+
+  footer .flex.gap-6 {
+    justify-content: center;
+  }
+
+  /* Email in footer: wrap cleanly */
+  footer a[href^="mailto"] {
+    word-break: break-all;
+  }
+}
