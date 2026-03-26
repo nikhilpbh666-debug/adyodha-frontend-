@@ -17,37 +17,44 @@ export default function Contact() {
   const [isLoading, setIsLoading] = useState(false)
   const [apiError, setApiError] = useState('')
 
-  // Email validation regex
   const isValidEmail = (email) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-    return emailRegex.test(email)
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
   }
 
-  // Validate form fields (client-side)
+  // Accepts: 10 digits (no country code) or E.164 with + and 1-3 digit country code
+  // Allows formatting chars: spaces, dashes, parentheses
+  // Examples: 5551234567 | (555) 123-4567 | +1 555 123 4567 | +44 7911 123456
+  const isValidPhone = (phone) => {
+    const cleaned = phone.trim()
+    // With country code: +[1-3 digits][10 digits] = 11-15 digits total
+    if (cleaned.startsWith('+')) {
+      const digits = cleaned.replace(/\D/g, '')
+      return digits.length >= 11 && digits.length <= 15
+    }
+    // Without country code: exactly 10 digits
+    const digits = cleaned.replace(/\D/g, '')
+    return digits.length === 10
+  }
+
   const validateForm = () => {
     const newErrors = {}
 
-    // Name validation
-    if (!formData.name.trim()) {
+    if (!formData.name.trim())
       newErrors.name = 'Name is required'
-    }
 
-    // Email validation
-    if (!formData.email.trim()) {
+    if (!formData.email.trim())
       newErrors.email = 'Email is required'
-    } else if (!isValidEmail(formData.email)) {
+    else if (!isValidEmail(formData.email))
       newErrors.email = 'Please enter a valid email address'
-    }
 
-    // Phone validation
     if (!formData.phone.trim()) {
       newErrors.phone = 'Phone number is required'
+    } else if (!isValidPhone(formData.phone)) {
+      newErrors.phone = 'Enter a 10-digit number or include country code (e.g. +1 5551234567)'
     }
 
-    // Message validation
-    if (!formData.message.trim()) {
+    if (!formData.message.trim())
       newErrors.message = 'Message is required'
-    }
 
     return newErrors
   }
@@ -255,11 +262,13 @@ export default function Contact() {
                   name="phone"
                   value={formData.phone}
                   onChange={handleChange}
-                  placeholder="(555) 123-4567"
+                  placeholder="5551234567 or +1 5551234567"
+                  maxLength={16}
                   className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 transition ${
                     errors.phone ? 'form-input-error' : 'border-gray-300'
                   }`}
                 />
+                <p className="text-xs text-gray-400 mt-1">10 digits, or include country code e.g. +1 5551234567</p>
                 {errors.phone && <p className="form-error-text">{errors.phone}</p>}
               </div>
 
